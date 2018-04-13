@@ -1,0 +1,18 @@
+-function draw walls
+	  parcourir le tableau (une ligne de gauche a droite)
+	  ratio [-1 : 1] ... (2i-n)/n
+	  vector ... x = cos(angle du joueur)/2 + cos(angle-0.25)*ratio
+	  	     y = idem avec sin
+	  coordonnees du joueur
+	  	      partie entiere de x et de y
+	  delta x = sqrt(1+y2/x2)
+	  delta y inverse
+
+	  si x < 0 stepx = -1 sinon = 1
+	  stepy idem
+	  sidedistx = (diff entre x et coords) * delta
+	  ............coords+1 - x
+
+
+	  hit = 0
+-
