@@ -1,3 +1,5 @@
+
+
 public class Player{
     private double x, y; // add an H after for the jump
     private double dirX = -1, dirY = 0;

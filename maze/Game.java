@@ -1,7 +1,7 @@
 public class Game extends SimpleInterface{
     private Player player;
     private World world;
-    public static final int width = 1920, height = 1080;
+    public static final int width = 600, height = 400;
     
     public Game(){
 	this(new Player(), new World(new Maze(24,24),width,height));
