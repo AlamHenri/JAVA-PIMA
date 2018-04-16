@@ -33,6 +33,7 @@ public class Maze extends Map{ //implements ??
 
 	//　Allocate the maze with recursive method
 	recursion(r, c);
+	setExit();
     }
 
     public void recursion(int r, int c) {
@@ -100,5 +101,25 @@ public class Maze extends Map{ //implements ??
 	Collections.shuffle(randoms);
 
 	return randoms.toArray(new Integer[4]);
+    }
+
+    private void setExit(){
+	int height = y;
+	int width = x;
+
+	switch ((int)(Math.random()*4)){
+	case 0://UP
+	    map[1][(int)(Math.random()*width)] = 99; 
+	    break;
+	case 1://DOWN
+	    map[height - 2][(int)(Math.random()*width)] = 99; 
+	    break;
+	case 2://LEFT
+	    map[(int)(Math.random()*height)][1] = 99; 
+	    break;
+	case 3://RIGHT
+	    map[(int)(Math.random()*height)][width - 2] = 99; 
+	    break;
+	}
     }
 }

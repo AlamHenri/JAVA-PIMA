@@ -213,8 +213,8 @@ public class SimpleInterface extends JFrame implements KeyListener{
      * @param x x coordinate
      * @param y y coordinate
      * @param width width of the rectangle
-	 * @param height height of the rectangle
-	 */
+     * @param height height of the rectangle
+     */
 
     public void clearRect(int x, int y, int width, int height){
 	fillRect(x,y,width,height,BLACK);

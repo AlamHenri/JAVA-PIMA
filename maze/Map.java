@@ -3,6 +3,7 @@ public class Map{
     protected int[][] map;
     private final int[] wallColor = new int[]{0,255,0};
     private final int[] floorColor = new int[]{25,25,0};
+    private final int[] exitColor = new int[]{0,0,200};
 
     public Map(int x, int y){
 	this.x = x;
@@ -57,7 +58,9 @@ public class Map{
     public void drawMiniMap(SimpleInterface inter, Player p){
 	drawMiniMap(inter,p.getX(),p.getY());
     }
-    
+
+    //TODO:
+    //creer un tableau des couleurs et enlever les conditions dans la boucle "tab[map[i_][j_]]"
     public void drawMiniMap(SimpleInterface inter, double posX, double posY){
 	int i_, j_;
 	for(int i = 0; i < 3*x; ++i){
@@ -66,11 +69,16 @@ public class Map{
 		j_ = j/3;
 		if(map[i_][j_] == 1)
 		    inter.setRGB(i,j,wallColor);
-		else
+		else if(map[i_][j_] == 0)
 		    inter.setRGB(i,j,floorColor);
+		else
+		    inter.setRGB(i,j,exitColor);
 	    }
 	}
 	inter.setRGB((int)posX*3,(int)posY*3,inter.RED);
+	inter.setRGB((int)posX*3,(int)posY*3+1,inter.RED);
+	inter.setRGB((int)posX*3+1,(int)posY*3+1,inter.RED);
+	inter.setRGB((int)posX*3+1,(int)posY*3,inter.RED);
 	inter.refresh();
     }
 }

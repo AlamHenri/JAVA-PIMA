@@ -15,7 +15,7 @@ public class Player{
     }
 
     public Player(){
-	this(5.0,5.0,0.0);
+	this(5.5,5.5,0.0);
     }
 
 

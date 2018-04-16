@@ -1,10 +1,12 @@
+import java.awt.event.*;
+
 public class Game extends SimpleInterface{
     private Player player;
     private World world;
-    public static final int width = 600, height = 400;
+    public static final int width = 300, height = 200;
     
     public Game(){
-	this(new Player(), new World(new Maze(24,24),width,height));
+	this(new Player(), new World(new Maze(25,25),width,height));
     }
 
     public Game(Player p, World w){
@@ -17,7 +19,7 @@ public class Game extends SimpleInterface{
     }
 
     public Game(Player p){
-	this(p, new World(new Maze(24,24),width,height));
+	this(p, new World(new Maze(25,25),width,height));
     }
 
     /************************************/
@@ -52,5 +54,8 @@ public class Game extends SimpleInterface{
 	    //Draw the result
 	    exit = !draw();
 	}
+
+	dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	
     }
 }

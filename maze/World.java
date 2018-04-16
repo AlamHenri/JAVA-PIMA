@@ -2,6 +2,7 @@ public class World{
     private Maze map;
     private double posX, posY;
     private int dimx, dimy;
+    private int[] exitColor = new int[]{255,255,255};
     private int[] wallColor = new int[]{0,150,0};
     private int[] floorColor = new int[]{160,82,45};
     private int[] skyColor = new int[]{119, 181, 254};    
@@ -30,33 +31,47 @@ public class World{
 	double rotSpeed = 0.10;
 
 	//move forward if no wall
-	if(key == 'z'){ //up
+	switch (key){
+	case 'z': //up
 	    if(map.get((p.getX() + p.getDirX() * moveSpeed),(p.getY())) == 0)
 		p.move(p.getDirX()*moveSpeed,0);
 	    if(map.get(p.getX(),(p.getY() + p.getDirY() * moveSpeed)) == 0)
 		p.move(0,p.getDirY()*moveSpeed);
-	}
-	else if(key == 's'){ //down
+	    break;
+	case 's': //down
 	    if(map.get((p.getX() - p.getDirX() * moveSpeed),(p.getY())) == 0)
 		p.move(-p.getDirX()*moveSpeed,0);
 	    if(map.get(p.getX(),(p.getY() - p.getDirY() * moveSpeed)) == 0)
 		p.move(0,-p.getDirY()*moveSpeed);	    
-	}
-	else if(key == 'd'){ //right
+	    break;
+	case 'd': //right step
+	    if(map.get((p.getX() - p.getDirY() * moveSpeed),(p.getY())) == 0)
+		p.move(-p.getDirY()*moveSpeed,0);
+	    if(map.get(p.getX(),(p.getY() + p.getDirX() * moveSpeed)) == 0)
+		p.move(0,p.getDirX()*moveSpeed);
+	    break;
+	case 'q': //left step
+	    if(map.get((p.getX() + p.getDirY() * moveSpeed),(p.getY())) == 0)
+		p.move(p.getDirY()*moveSpeed,0);
+	    if(map.get(p.getX(),(p.getY() - p.getDirX() * moveSpeed)) == 0)
+		p.move(0,-p.getDirX()*moveSpeed);	    
+	    break;
+	case '6': //right rotate
 	    p.rotate(p.getDirX() * Math.cos(rotSpeed) - p.getDirY() * Math.sin(rotSpeed),
 		     p.getDirX() * Math.sin(rotSpeed) + p.getDirY() * Math.cos(rotSpeed),
 		     p.getPlaneX() * Math.cos(rotSpeed) - p.getPlaneY() * Math.sin(rotSpeed),
 		     p.getPlaneY() * Math.cos(rotSpeed) + p.getPlaneX() * Math.sin(rotSpeed));
-	}
-	else if(key == 'q'){ //left
+	    break;
+	case '4': //left rotate
 	    p.rotate(p.getDirX() * Math.cos(-rotSpeed) - p.getDirY() * Math.sin(-rotSpeed),
 		     p.getDirX() * Math.sin(-rotSpeed) + p.getDirY() * Math.cos(-rotSpeed),
 		     p.getPlaneX() * Math.cos(-rotSpeed) - p.getPlaneY() * Math.sin(-rotSpeed),
 		     p.getPlaneY() * Math.cos(-rotSpeed) + p.getPlaneX() * Math.sin(-rotSpeed));
-	}
-	else
+	    break;
+	default:
 	    return false;
-
+	}
+	
 	return true;
     }
     
@@ -86,7 +101,17 @@ public class World{
 
 	//draw rectangle for the ground
 	inter.fillRect(0,0,dimx,dimy/2,skyColor);
-	inter.fillRect(0,dimy/2,dimx,dimy,floorColor);
+	//    inter.fillRect(0,dimy/2,dimx,dimy,floorColor);
+
+
+	//to change
+	//	int tmp1 = (int)(2*dimy / 100);
+	for(int i=dimy/2; i < dimy; ++i){
+	    floorColor[0] = 120 + i/8;
+	    floorColor[1] = 42 + i/8;
+	    floorColor[2] = 5 + i/8;
+	    inter.fillRect(0,i,dimx,i,floorColor);
+	}
 	    
 	
 	//width dimx
@@ -127,7 +152,8 @@ public class World{
 
 	    //perform DDA "Digital Differential Analysis"
 	    hit = false;
-
+	    boolean wall = false;
+	    
 	    while(!hit){
 		//jump to the next map square, in x or y-direction
 		if(sideDistX < sideDistY){
@@ -141,8 +167,13 @@ public class World{
 		}
 
 		//check if ray has hit a wall
-		if(map.get(mapX,mapY) != 0){
+		if(map.get(mapX,mapY) == 1){
 		    hit = true;
+		    wall = true;
+		}
+		else if(map.get(mapX,mapY) == 99){
+		    hit = true;
+		    wall = false;
 		}
 	    }
 
@@ -162,13 +193,24 @@ public class World{
 	    if(drawStart < 0) drawStart = 0;
 	    if(drawEnd >= dimy) drawEnd = dimy - 1;
 
-	    //give x and y sides different brightness
-	    if(side == 1) wallColor[1] = 150;
-	    else wallColor[1] = 200;
+
+	    int tmp = Math.abs(((drawEnd - drawStart) * 100)/dimy);
 	    
-	    for(int j = drawStart; j <= drawEnd; ++j){
-		inter.setRGB(dimx-1-i,j,wallColor);
+	    //give x and y sides different brightness
+	    if(side == 1) wallColor[1] = 116 + tmp;//150
+	    else wallColor[1] = 156 + tmp;//200
+
+	    if(wall){
+		for(int j = drawStart; j <= drawEnd; ++j){
+		    inter.setRGB(dimx-1-i,j,wallColor);
+		}
 	    }
+	    else{
+		for(int j = drawStart; j <= drawEnd; ++j){
+		    inter.setRGB(dimx-1-i,j,exitColor);
+		}
+	    }
+
 	}
 	map.drawMiniMap(inter,p.getX(),p.getY());
 
