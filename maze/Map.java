@@ -4,6 +4,7 @@ public class Map{
     private final int[] wallColor = new int[]{0,255,0};
     private final int[] floorColor = new int[]{25,25,0};
     private final int[] exitColor = new int[]{0,0,200};
+    private final int[][] colors = new int[][]{{25,25,0},{0,255,0},{0,0,200}};
 
     public Map(int x, int y){
 	this.x = x;
@@ -67,12 +68,14 @@ public class Map{
 	    i_ = i/3;
 	    for(int j = 0; j < 3*y; ++j){
 		j_ = j/3;
+		inter.setRGB(i,j,colors[map[i_][j_]]);
+		/*
 		if(map[i_][j_] == 1)
 		    inter.setRGB(i,j,wallColor);
 		else if(map[i_][j_] == 0)
 		    inter.setRGB(i,j,floorColor);
 		else
-		    inter.setRGB(i,j,exitColor);
+		inter.setRGB(i,j,exitColor);*/
 	    }
 	}
 	inter.setRGB((int)posX*3,(int)posY*3,inter.RED);

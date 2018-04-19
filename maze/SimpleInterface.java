@@ -33,7 +33,6 @@ public class SimpleInterface extends JFrame implements KeyListener{
      * Create an interface
      * @param name Name of the  window
      */
-
     public SimpleInterface(String name){
 	this(name,600,400);
     }

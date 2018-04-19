@@ -3,10 +3,10 @@ import java.awt.event.*;
 public class Game extends SimpleInterface{
     private Player player;
     private World world;
-    public static final int width = 300, height = 200;
+    public static final int width = 600, height = 400;
     
     public Game(){
-	this(new Player(), new World(new Maze(25,25),width,height));
+	this(new Player(), new World(new Maze(15,15),width,height));
     }
 
     public Game(Player p, World w){
@@ -19,19 +19,19 @@ public class Game extends SimpleInterface{
     }
 
     public Game(Player p){
-	this(p, new World(new Maze(25,25),width,height));
+	this(p, new World(new Maze(15,15),width,height));
     }
 
     /************************************/
 
     private boolean draw(){
 	int key = lastKey();
-	
-	if(key != 'o' && world.walk(player,key))
-	    world.fillScreen(this,player);
-	else if(key == 'o')
+
+	if(key == 'o')
 	    return false;
-      	
+	else if(world.walk(player,key))
+	    world.fillScreen(this,player);
+        
 	refresh();
 	pause(12);
        

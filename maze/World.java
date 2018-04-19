@@ -30,7 +30,6 @@ public class World{
 	double moveSpeed = 0.2;     // Paramètres à modifier 
 	double rotSpeed = 0.10;
 
-	//move forward if no wall
 	switch (key){
 	case 'z': //up
 	    if(map.get((p.getX() + p.getDirX() * moveSpeed),(p.getY())) == 0)
@@ -171,7 +170,7 @@ public class World{
 		    hit = true;
 		    wall = true;
 		}
-		else if(map.get(mapX,mapY) == 99){
+		else if(map.get(mapX,mapY) == 2){
 		    hit = true;
 		    wall = false;
 		}

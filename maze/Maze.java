@@ -109,16 +109,16 @@ public class Maze extends Map{ //implements ??
 
 	switch ((int)(Math.random()*4)){
 	case 0://UP
-	    map[1][(int)(Math.random()*width)] = 99; 
+	    map[1][(int)(Math.random()*width)] = 2; 
 	    break;
 	case 1://DOWN
-	    map[height - 2][(int)(Math.random()*width)] = 99; 
+	    map[height - 2][(int)(Math.random()*width)] = 2; 
 	    break;
 	case 2://LEFT
-	    map[(int)(Math.random()*height)][1] = 99; 
+	    map[(int)(Math.random()*height)][1] = 2; 
 	    break;
 	case 3://RIGHT
-	    map[(int)(Math.random()*height)][width - 2] = 99; 
+	    map[(int)(Math.random()*height)][width - 2] = 2; 
 	    break;
 	}
     }
