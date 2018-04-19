@@ -84,11 +84,11 @@ public class World{
 	double rayDirX, rayDirY;
 	double perpWallDist;
 	int side = 0; //was a NS or a EW wall hit?
-	boolean hit; //was there a wall hit?
+	boolean hit, wall; //was there a wall hit?
 
 	//for drawing
 	int lineHeight, drawStart, drawEnd;
-
+	int coeff_color;
 	//time of the current frame and of the previous one
 	//	double time = 0, oldTime = 0;
 
@@ -151,7 +151,7 @@ public class World{
 
 	    //perform DDA "Digital Differential Analysis"
 	    hit = false;
-	    boolean wall = false;
+	    wall = false;
 	    
 	    while(!hit){
 		//jump to the next map square, in x or y-direction
@@ -192,12 +192,12 @@ public class World{
 	    if(drawStart < 0) drawStart = 0;
 	    if(drawEnd >= dimy) drawEnd = dimy - 1;
 
-
-	    int tmp = Math.abs(((drawEnd - drawStart) * 100)/dimy);
+	    coeff_color = Math.abs(((drawEnd - drawStart) * 100)/dimy);
 	    
+
 	    //give x and y sides different brightness
-	    if(side == 1) wallColor[1] = 116 + tmp;//150
-	    else wallColor[1] = 156 + tmp;//200
+	    if(side == 1) wallColor[1] = 116 + coeff_color;//150
+	    else wallColor[1] = 156 + coeff_color;//200
 
 	    if(wall){
 		for(int j = drawStart; j <= drawEnd; ++j){

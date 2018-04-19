@@ -2,7 +2,7 @@ import java.awt.event.*;
 
 public class Game extends SimpleInterface{
     private Player player;
-    private World world;
+    private World world; 
     public static final int width = 600, height = 400;
     
     public Game(){
