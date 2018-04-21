@@ -1,5 +1,3 @@
-import java.awt.event.*;
-
 public class Game extends SimpleInterface{
     private Player player;
     private World world; 
@@ -14,7 +12,8 @@ public class Game extends SimpleInterface{
 	player = p;
 	world = w;
 
-	super.createArea(width,height);
+	setResizable(false);
+       	super.createArea(width,height);
 	super.refresh();
     }
 
@@ -57,7 +56,6 @@ public class Game extends SimpleInterface{
 	    exit = !draw();
 	}
 
-	dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-	
+	closeWindow();
     }
 }

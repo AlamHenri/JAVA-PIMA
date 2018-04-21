@@ -70,6 +70,10 @@ public class SimpleInterface extends JFrame implements KeyListener{
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public void closeWindow(){
+	dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }
+    
     /**
      * Redraw the window
      */
