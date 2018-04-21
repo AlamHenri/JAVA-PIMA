@@ -25,17 +25,19 @@ public class Game extends SimpleInterface{
     /************************************/
 
     private boolean draw(){
-	int key = lastKey();
+       	int key = waitKey(2);
 
-	if(key == 'o')
-	    return false;
-	else if(world.walk(player,key))
-	    world.fillScreen(this,player);
-        
-	refresh();
-	pause(12);
-       
-	//	super.emptyKey(super.lastKey);
+	do{
+	    if(key == 'o')
+		return false;
+	    else if(world.walk(player,key)) {
+		world.fillScreen(this,player);
+	    }
+
+	    refresh();
+	    pause(7);
+	}while(keyPressed && (key == lastKey()));
+	
 	return true;
     }
 

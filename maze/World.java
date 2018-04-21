@@ -27,8 +27,8 @@ public class World{
 
 
     public boolean walk(Player p, int key){
-	double moveSpeed = 0.2;     // Paramètres à modifier 
-	double rotSpeed = 0.10;
+	double moveSpeed = 0.05;     //0.2 Paramètres à modifier 
+	double rotSpeed = 0.04;//0.10
 
 	switch (key){
 	case 'z': //up

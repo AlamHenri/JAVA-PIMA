@@ -18,7 +18,9 @@ public class SimpleInterface extends JFrame implements KeyListener{
     private static final long serialVersionUID = 1L;
     private int nbCols, nbRows;
     private BufferedImage img;
-    protected ArrayList<Integer> lastKey;
+    //    protected ArrayList<Integer> lastKey;
+    protected boolean keyPressed = false;
+    private int lastKey;
     private Queue<MyMouseEvent> lastClicked;
     private MyPanel panel;
     public final static int[] BLACK = new int[]{0,0,0};
@@ -47,7 +49,7 @@ public class SimpleInterface extends JFrame implements KeyListener{
     public SimpleInterface(String name, int width, int height){
 	super(name);
 	this.nbCols = this.nbRows = 1;
-	lastKey=new ArrayList<Integer>();
+	//lastKey=new ArrayList<Integer>();
 	lastClicked = new LinkedList<MyMouseEvent>();
 	panel = new MyPanel();
 	panel.setPreferredSize(new Dimension(width, height));
@@ -369,52 +371,17 @@ public class SimpleInterface extends JFrame implements KeyListener{
      *
      ******************************************************************/
 
-    /*  /**
-     * Remove all the keys except the last one 
-     **/
-    /* public int removeKey(){
-	if (lastKey.size()==0)
-	    return -1;
-	return lastKey.remove();
-	} */
-
-    //  Remove all of the elements of the Queue
-
-    public void emptyKey(ArrayList<Integer> list){
-	for(int i =0; i< list.size(); i++ ){
-	    list.remove(i);
-	}
+    
+    /**  Remove the last key pressed*/
+    public void emptyKey(){
+	lastKey = -1;
     }
 
-    // Return the last key of the list
-
+    /** Return the last key pressed */
     public int lastKey(){
-	Integer res;
-	if (lastKey.size()==0)
-	    return -1;
-	else {
-	    res = lastKey.get(lastKey.size()-1);
-	    lastKey.remove(lastKey.size()-1);
-	}
-
-	return res;
+	return lastKey;
     }
     
-    /**
-     * Return the first key in queue and remove it at the same time 
-     * @returnascii code of the key
-     */
-    public int popKey(){
-	Integer res;
-	if (lastKey.size()==0)
-	    return -1;
-	else {
-	    res = lastKey.get(0);
-	    lastKey.remove(0);
-	}
-	return res;
-    }
-
     /**
      * Return the first mouse click event in queue
      * @return the array [x,y,id] containing the clicked pixel (x,y) and the id of the button
@@ -431,11 +398,12 @@ public class SimpleInterface extends JFrame implements KeyListener{
      * @return the pushed key
      */
 
-    public int waitKey(){
+    public int waitKey(int time){
 	int k;
-	while((k = popKey())<0){
-	    pause(10);
+	while((k = lastKey()) < 0){
+	    pause(time);
 	}
+	//	emptyKey();
 	return k;
     }
 
@@ -573,12 +541,21 @@ public class SimpleInterface extends JFrame implements KeyListener{
     }
     private Graphics2D getGraphics2D(){return this.img.createGraphics();}
     private int rgbToInt(int r, int g, int b){
-	return (r << 16) | (g <<8 )| b;
+	return (r << 16) | (g << 8) | b;
     }
 
-    public void keyPressed(KeyEvent e){lastKey.add(new Integer(e.getKeyChar()));}
-    public void keyTyped(KeyEvent e) {}
-    public void keyReleased(KeyEvent e) {}
+    public void keyPressed(KeyEvent e){
+	lastKey = e.getKeyChar();
+	keyPressed = true;
+    }
+    public void keyTyped(KeyEvent e) {
+	lastKey = e.getKeyChar();
+	keyPressed = true;
+    }
+    public void keyReleased(KeyEvent e) {
+	emptyKey();
+	keyPressed = false;
+    }
 
     private int rgbToInt(int[] tab){
 	if (tab.length!=3)
