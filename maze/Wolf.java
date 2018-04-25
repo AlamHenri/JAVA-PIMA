@@ -7,9 +7,8 @@ public class Wolf{
 	
 	Game game = new Game();
 	
-	
 	game.run();
-	
+
 	/*
       	while(true){
 
