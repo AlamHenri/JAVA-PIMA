@@ -58,11 +58,11 @@ public class Game extends SimpleInterface{
 
 	    //Draw the result
 	    exit = !draw();
+	    // Check if the exit is near then display message box
 	    if(exitNear((int)(player.getX()), (int) (player.getY() ) ) ) {
 		printSuccess();
 	    }
 	}
-	// Display message when we found the exit
 	closeWindow();
      }
 
@@ -84,4 +84,3 @@ public class Game extends SimpleInterface{
     }
     
 }
-
