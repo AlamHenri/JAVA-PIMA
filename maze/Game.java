@@ -8,15 +8,17 @@ public class Game extends SimpleInterface{
     private Player player;
     private World world; 
     public static final int width = 600, height = 400;
+    public int score;
     
     public Game(){
-	this(new Player(), new World(new Maze(15,15),width,height));
+	this(new Player(), new World(new Maze(15,15),width,height),100);
     }
 
-    public Game(Player p, World w){
+    public Game(Player p, World w, int s){
 	super("Maze Walker",width,height);
 	player = p;
 	world = w;
+	score = s;
 
 	setResizable(false);
        	super.createArea(width,height);
@@ -24,7 +26,7 @@ public class Game extends SimpleInterface{
     }
 
     public Game(Player p){
-	this(p, new World(new Maze(15,15),width,height));
+	this(p, new World(new Maze(15,15),width,height),100);
     }
 
     /************************************/
