@@ -32,12 +32,12 @@ public class Game extends SimpleInterface implements Drawable{
 
     /************************************/
 
-    public boolean draw(SimpleInterface inter, double posX, double posY){
+    public void draw(SimpleInterface inter, double posX, double posY){
        	int key = waitKey(2);
 
 	do{
 	    if(key == 'o')
-		return false;
+		return;
 	    else if(world.walk(player,key)) {
 		world.fillScreen(inter,player);
 	    }
@@ -45,8 +45,7 @@ public class Game extends SimpleInterface implements Drawable{
 	    refresh();
 	    pause(7);
 	}while(keyPressed && (key == lastKey()));
-	
-	return true;
+        
     }
     public void run(){
 	boolean exit = false;
@@ -63,16 +62,15 @@ public class Game extends SimpleInterface implements Drawable{
 	while(!exit){
 	    //System.out.println("debut = " + start);
 	    //Draw the result
-	    exit = !draw(this,player.getX(),player.getY());
+	    draw(this,player.getX(),player.getY());
 	    // Check if the exit is near then display message box
-	    if(exitNear((int)(player.getX()), (int) (player.getY() ) ) ) {
+	    if(exit = exitNear((int)(player.getX()), (int) (player.getY() ) ) ) {
 		end = System.nanoTime();
 		//System.out.println("fin = " + end);
 		time =(int)(end - start);
 		time =(int)((double)( time)/1000000000);
 		printSuccess(time);
 		//		printScore(time,height);
-		exit = true;
 	    }
 	}
 	closeWindow();

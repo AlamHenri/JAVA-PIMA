@@ -53,7 +53,7 @@ public class Map implements Drawable{
     }
 
     /* Graphics */
-    public boolean draw(SimpleInterface inter, double posX, double posY){
+    public void draw(SimpleInterface inter, double posX, double posY){
 	int i_, j_;
 	for(int i = 0; i < 3*x; ++i){
 	    i_ = i/3;
@@ -67,7 +67,5 @@ public class Map implements Drawable{
 	inter.setRGB((int)posX*3+1,(int)posY*3+1,inter.RED);
 	inter.setRGB((int)posX*3+1,(int)posY*3,inter.RED);
 	inter.refresh();
-
-	return true;
     }
 }
