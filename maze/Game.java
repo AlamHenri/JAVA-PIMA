@@ -9,7 +9,8 @@ public class Game extends SimpleInterface implements Drawable{
     private World world; 
     public static final int width = 600, height = 400;
     public int score;
-    public static final int maze_height = 25, maze_width = 25;
+    public static final int maze_height = 10, maze_width = 10;
+    private String name_player;
     
     public Game(){
 	this(new Player(), new World(new Maze(maze_width,maze_height),width,height),100);
@@ -48,15 +49,16 @@ public class Game extends SimpleInterface implements Drawable{
         
     }
     public void run(){
+	FileCreator f = new FileCreator();
 	boolean exit = false;
 	double start,end;
-	int time;
+	int time,score;
 	//Welcome screen
+	name_player = getPlayerName();
 	drawImage(loadImage("mazeWalker.jpg"), 0, 0, width, height);
-	refresh();
+	refresh();  
 	waitClick();
 	world.fillScreen(this,player);
-	
 	//Start the game
 	start = System.nanoTime();
 	while(!exit){
@@ -67,14 +69,26 @@ public class Game extends SimpleInterface implements Drawable{
 	    if(exit = exitNear((int)(player.getX()), (int) (player.getY() ) ) ) {
 		end = System.nanoTime();
 		//System.out.println("fin = " + end);
-		time =(int)(end - start);
-		time =(int)((double)( time)/1000000000);
+		time =(int)((end - start)/1000000000);
+		score = 1000 - time;
 		printSuccess(time);
-		//		printScore(time,height);
+		printScore(time,maze_height);
+		// Ecriture dans le fichier du résumé de la partie
+		f.openFile();
+		f.printf(name_player,maze_height,time,score);
+		f.closeFile();
+		// 
 	    }
 	}
 	closeWindow();
      }
+
+    public String getPlayerName(){ 
+	String name;
+	JFrame frame = new JFrame();
+        name = JOptionPane.showInputDialog(frame, "Player name:");
+	return name;
+    }
 
     public void printSuccess(int time){ // Message quand on vient de trouver la sortie 
 	JFrame frame = new JFrame("GAME OVER");
@@ -82,13 +96,13 @@ public class Game extends SimpleInterface implements Drawable{
 	d.showMessageDialog(frame, "Bien joué, vous avez gagné en " +time+" secondes ! \n", "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /*public void printScore(int time, int dim_maze){ // Ajouter le nom au debut avec les autres variables et le metrre dans cette fonction
-	int score =;//* ((double)((double)dim_maze/10.0)));
-	JFrame frame = new JFrame("Score");
+    public void printScore(int time, int dim_maze){ // Ajouter le nom au debut avec les autres variables et le metrre dans cette fonction
+	int score = 1000 - time ;//* ((double)((double)dim_maze/10.0)));Par defaut 1000..
+ 	JFrame frame = new JFrame("Score");
 	JOptionPane d = new JOptionPane();
 	d.showMessageDialog(frame, "Vous avez un score égal à : "+score+"\n", "SCORE", JOptionPane.INFORMATION_MESSAGE);
    
-	}*/
+	}
 
     
     // returns true if the exit is within a range of one cell radius
