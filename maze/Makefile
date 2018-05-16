@@ -1,10 +1,10 @@
-all: wolf3d
+all: mazeWalker
 
-wolf3d: *.java
+mazeWalker: *.java
 	javac *.java
 
 run:
-	java Wolf
+	java MazeWalker
 
 clean:
 	rm -f *.class *~

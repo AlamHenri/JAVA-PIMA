@@ -211,7 +211,7 @@ public class World{
 	    }
 
 	}
-	map.drawMiniMap(inter,p.getX(),p.getY());
+	map.draw(inter,p.getX(),p.getY());
 
     }
 

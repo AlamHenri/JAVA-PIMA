@@ -32,7 +32,7 @@ public class Game extends SimpleInterface implements Drawable{
 
     /************************************/
 
-    private boolean draw(SimpleInterface inter, double posX, double posY){
+    public boolean draw(SimpleInterface inter, double posX, double posY){
        	int key = waitKey(2);
 
 	do{
@@ -63,7 +63,7 @@ public class Game extends SimpleInterface implements Drawable{
 	while(!exit){
 	    //System.out.println("debut = " + start);
 	    //Draw the result
-	    exit = !draw();
+	    exit = !draw(this,player.getX(),player.getY());
 	    // Check if the exit is near then display message box
 	    if(exitNear((int)(player.getX()), (int) (player.getY() ) ) ) {
 		end = System.nanoTime();
@@ -71,7 +71,7 @@ public class Game extends SimpleInterface implements Drawable{
 		time =(int)(end - start);
 		time =(int)((double)( time)/1000000000);
 		printSuccess(time);
-		printScore(time,height);
+		//		printScore(time,height);
 		exit = true;
 	    }
 	}
@@ -84,13 +84,13 @@ public class Game extends SimpleInterface implements Drawable{
 	d.showMessageDialog(frame, "Bien joué, vous avez gagné en " +time+" secondes ! \n", "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void printScore(int time, int dim_maze){ // Ajouter le nom au debut avec les autres variables et le metrre dans cette fonction
+    /*public void printScore(int time, int dim_maze){ // Ajouter le nom au debut avec les autres variables et le metrre dans cette fonction
 	int score =;//* ((double)((double)dim_maze/10.0)));
 	JFrame frame = new JFrame("Score");
 	JOptionPane d = new JOptionPane();
 	d.showMessageDialog(frame, "Vous avez un score égal à : "+score+"\n", "SCORE", JOptionPane.INFORMATION_MESSAGE);
    
-    }
+	}*/
 
     
     // returns true if the exit is within a range of one cell radius

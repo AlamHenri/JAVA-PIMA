@@ -1,3 +1,3 @@
 public interface Drawable {
-    void draw();
+    boolean draw(SimpleInterface inter, double posX, double posY);
 }
