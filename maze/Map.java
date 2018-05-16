@@ -1,4 +1,4 @@
-public class Map{
+public class Map implements Drawable{
     protected int x, y;
     protected int[][] map;
     private final int[][] colors = new int[][]{{25,25,0},{0,255,0},{0,0,200}};
@@ -53,11 +53,7 @@ public class Map{
     }
 
     /* Graphics */
-    public void drawMiniMap(SimpleInterface inter, Player p){
-	drawMiniMap(inter,p.getX(),p.getY());
-    }
-
-    public void drawMiniMap(SimpleInterface inter, double posX, double posY){
+    public void draw(SimpleInterface inter, double posX, double posY){
 	int i_, j_;
 	for(int i = 0; i < 3*x; ++i){
 	    i_ = i/3;

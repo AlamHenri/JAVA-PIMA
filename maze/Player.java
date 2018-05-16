@@ -1,6 +1,6 @@
 
 
-public class Player{
+public class Player implements Weakness{
     private double x, y; // add an H after for the jump
     private double dirX = -1, dirY = 0;
     private double planeX = 0, planeY = 0.66;
@@ -17,7 +17,6 @@ public class Player{
     public Player(){
 	this(5.5,5.5,0.0);
     }
-
 
     public double getX(){
 	return x;
@@ -53,5 +52,15 @@ public class Player{
 	this.dirY = dirY;
 	this.planeX = planeX;
 	this.planeY = planeY;
+    }
+
+    //interface
+
+    public void peureux(){
+	//world.walk(
+    }
+    
+    public void paresseux(){
+
     }
 }
