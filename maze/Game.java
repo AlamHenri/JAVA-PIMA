@@ -6,7 +6,8 @@ import java.lang.System.*;
 
 public class Game extends SimpleInterface implements Drawable{
     private Player player;
-    private World world; 
+    private World world;
+    private boolean miniMap = false;
     public static final int width = 600, height = 400;
     public int score;
     public static final int maze_height = 51, maze_width = 51;
@@ -62,9 +63,10 @@ public class Game extends SimpleInterface implements Drawable{
 	//Start the game
 	start = System.nanoTime();
 	while(!exit){
-	    //System.out.println("debut = " + start);
+
 	    //Draw the result
 	    draw(this,player.getX(),player.getY());
+
 	    // Check if the exit is near then display message box
 	    if(exit = exitNear((int)(player.getX()), (int) (player.getY() ) ) ) {
 		end = System.nanoTime();
@@ -73,6 +75,7 @@ public class Game extends SimpleInterface implements Drawable{
 		score = 1000 - time;
 		printSuccess(time);
 		printScore(time,maze_height);
+
 		// Ecriture dans le fichier du résumé de la partie
 		f.openFile();
 		f.printf(name_player,maze_height,time,score);
@@ -80,6 +83,12 @@ public class Game extends SimpleInterface implements Drawable{
 		// 
 	    }
 	    if(lastKey() == 'o') exit = true;
+	    else if(lastKey() == 'm'){
+		world.drawMiniMap(miniMap);
+		miniMap = !miniMap;
+	    }
+
+	    if
 	}
 	closeWindow();
      }
