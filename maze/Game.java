@@ -7,11 +7,13 @@ import java.lang.System.*;
 public class Game extends SimpleInterface implements Drawable{
     private Player player;
     private World world;
-    private boolean miniMap = false;
+    private boolean miniMap_b = false;
     public static final int width = 600, height = 400;
     public int score;
     public static final int maze_height = 51, maze_width = 51;
     private String name_player;
+
+    private SimpleInterface miniMap;
     
     public Game(){
 	this(new Player(), new World(new Maze(maze_width,maze_height),width,height),100);
@@ -38,7 +40,7 @@ public class Game extends SimpleInterface implements Drawable{
        	int key = waitKey(2);
 
 	do{
-	    if(key == 'o')
+	    if(key == 'o' || key == 'm')
 		return;
 	    else if(world.walk(player,key)) {
 		world.fillScreen(inter,player);
@@ -82,16 +84,24 @@ public class Game extends SimpleInterface implements Drawable{
 		f.closeFile();
 		// 
 	    }
+	    
 	    if(lastKey() == 'o') exit = true;
 	    else if(lastKey() == 'm'){
-		world.drawMiniMap(miniMap);
-		miniMap = !miniMap;
+		miniMap_b = !miniMap_b;
+	        miniMapWindow(miniMap_b);
 	    }
-
-	    if
 	}
 	closeWindow();
      }
+
+    public void miniMapWindow(boolean b){
+	if(b){
+	    miniMap = new SimpleInterface("Mini Map",maze_width,maze_height);
+	}
+	else{
+	    miniMap.closeWindow();
+	}
+    }
 
     public String getPlayerName(){ 
 	String name;

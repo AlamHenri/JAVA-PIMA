@@ -205,9 +205,9 @@ public class World{
 
     }
 
-    public void drawMiniMap(boolean b){
+    /*public void drawMiniMap(boolean b){
 	if(b) map.draw(inter,p.getX(),p.getY());
 	else close
-    }
+	} */
 
 }
