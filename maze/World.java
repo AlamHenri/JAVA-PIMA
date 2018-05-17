@@ -1,22 +1,14 @@
 public class World{
-    private Maze map;
+    private Area map;
     private double posX, posY;
     private int dimx, dimy;
     private int[] exitColor = new int[]{255,255,255};
     private int[] wallColor = new int[]{0,150,0};
     private int[] floorColor = new int[]{160,82,45};
     private int[] skyColor = new int[]{119, 181, 254};    
-    /*    public World(){
-	this(new Maze());
-    }
-
-    public World(Maze m){
+    
+    public World(Area m, int width, int height){
 	map = m;
-	}*/
-
-    public World(Maze m, int width, int height){
-	map = m;
-	//	m.fillMap(0.1);
 	dimx = width;
 	dimy = height;
     }
@@ -25,9 +17,8 @@ public class World{
 	return map.get(x,y);
     }
 
-
     public boolean walk(Player p, int key){
-	double moveSpeed = 0.05;     //0.2 Paramètres à modifier 
+	double moveSpeed = 0.05;     //0.2  
 	double rotSpeed = 0.04;//0.10
 
 	switch (key){

@@ -2,19 +2,29 @@ import java.util.Random;
 import java.util.Collections;
 import java.util.ArrayList;
 
-public class Maze extends Map{ //implements ??
+public class Maze extends Area{
     public Maze(int x, int y){
 	super(x,y);
-	generateMaze();
+	generateArea();
     }
 
-    private void generateMaze(){
-	int height = y;
-	int width = x;
+    public int getX(){ return super.getX();}
+
+    public int getY(){ return super.getY();}
+
+    public int get(double x, double y){
+	return get((int)x, (int)y);
+    }
+
+    public int get(int x, int y){ return super.get(x,y); }
+    
+    public void generateArea(){
+	int height = getX();
+	int width = getY();
 	// Initialize
 	for (int i = 0; i < height; ++i)
 	    for (int j = 0; j < width; ++j)
-		map[i][j] = 1;
+		super.set(i, j, 1);
 
 	Random rand = new Random();
 	// r for row、c for column
@@ -29,29 +39,29 @@ public class Maze extends Map{ //implements ??
 	    c = rand.nextInt(width);
 	}
 	// Starting cell
-	map[r][c] = 0;
+	super.set(r, c, 0);
 
 	//　Allocate the maze with recursive method
 	recursion(r, c);
 	setExit();
     }
 
-    public void recursion(int r, int c) {
-	int height = y;
-	int width = x;
+    private void recursion(int r, int c) {
+	int height = getY();
+	int width = getX();
 	// 4 random directions
 	Integer[] randDirs = generateRandomDirections();
 	// Examine each direction
-	for (int i = 0; i < randDirs.length; i++) {
+	for (int i = 0; i < randDirs.length; ++i) {
 
 	    switch(randDirs[i]){
 	    case 1: // Up
 		//　Whether 2 cells up is out or not
 		if (r - 2 <= 0)
 		    continue;
-		if (map[r - 2][c] != 0) {
-		    map[r-2][c] = 0;
-		    map[r-1][c] = 0;
+		if (get(r - 2, c) != 0) {
+		    super.set(r-2, c, 0);
+		    super.set(r-1, c, 0);
 		    recursion(r - 2, c);
 		}
 		break;
@@ -59,9 +69,9 @@ public class Maze extends Map{ //implements ??
 		// Whether 2 cells to the right is out or not
 		if (c + 2 >= width - 1)
 		    continue;
-		if (map[r][c + 2] != 0) {
-		    map[r][c + 2] = 0;
-		    map[r][c + 1] = 0;
+		if (get(r, c + 2) != 0) {
+		    super.set(r, c + 2, 0);
+		    super.set(r, c + 1, 0);
 		    recursion(r, c + 2);
 		}
 		break;
@@ -69,9 +79,9 @@ public class Maze extends Map{ //implements ??
 		// Whether 2 cells down is out or not
 		if (r + 2 >= height - 1)
 		    continue;
-		if (map[r + 2][c] != 0) {
-		    map[r+2][c] = 0;
-		    map[r+1][c] = 0;
+		if (get(r + 2, c) != 0) {
+		    super.set(r+2, c, 0);
+		    super.set(r+1, c, 0);
 		    recursion(r + 2, c);
 		}
 		break;
@@ -79,9 +89,9 @@ public class Maze extends Map{ //implements ??
 		// Whether 2 cells to the left is out or not
 		if (c - 2 <= 0)
 		    continue;
-		if (map[r][c - 2] != 0) {
-		    map[r][c - 2] = 0;
-		    map[r][c - 1] = 0;
+		if (get(r, c - 2) != 0) {
+		    super.set(r, c - 2, 0);
+		    super.set(r, c - 1, 0);
 		    recursion(r, c - 2);
 		}
 		break;
@@ -104,21 +114,21 @@ public class Maze extends Map{ //implements ??
     }
 
     private void setExit(){
-	int height = y;
-	int width = x;
+	int height = getY();
+	int width = getX();
 
 	switch ((int)(Math.random()*4)){
 	case 0://UP
-	    map[1][(int)(Math.random()*width)] = 2; 
+	    super.set(1, (int)(Math.random()*width), 2); 
 	    break;
 	case 1://DOWN
-	    map[height - 2][(int)(Math.random()*width)] = 2; 
+	    super.set(height - 2, (int)(Math.random()*width), 2); 
 	    break;
 	case 2://LEFT
-	    map[(int)(Math.random()*height)][1] = 2; 
+	    super.set((int)(Math.random()*height), 1, 2); 
 	    break;
 	case 3://RIGHT
-	    map[(int)(Math.random()*height)][width - 2] = 2; 
+	    super.set((int)(Math.random()*height), width - 2, 2); 
 	    break;
 	}
     }

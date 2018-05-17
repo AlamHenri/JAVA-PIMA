@@ -9,7 +9,7 @@ public class Game extends SimpleInterface implements Drawable{
     private World world; 
     public static final int width = 600, height = 400;
     public int score;
-    public static final int maze_height = 10, maze_width = 10;
+    public static final int maze_height = 51, maze_width = 51;
     private String name_player;
     
     public Game(){
@@ -79,6 +79,7 @@ public class Game extends SimpleInterface implements Drawable{
 		f.closeFile();
 		// 
 	    }
+	    if(lastKey() == 'o') exit = true;
 	}
 	closeWindow();
      }
